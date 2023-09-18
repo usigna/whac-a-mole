@@ -33,17 +33,19 @@ circles.forEach(circle => {
   circle.addEventListener('mousedown', () => {
     if (circle.id == hitPosition) {
       result++;
-      score.textContent = result;
-      hitPosition = null;
     }
+
+    if (circle.id != hitPosition) {
+      result--;
+    }
+
+    score.textContent = result;
   })
 })
 
 function moveMole() {
   timerId = setInterval(randomCircle, 500);
 }
-
-// moveMole();
 
 function countDown() {
   currentTime--;
@@ -62,6 +64,8 @@ function countDown() {
 }
 
 btn.addEventListener('click', () => {
+  clearInterval(countDownTimerId);
+  clearInterval(timerId);
   moveMole();
   countDownTimerId = setInterval(countDown, 1000);
 })
